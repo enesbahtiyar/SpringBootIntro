@@ -1,9 +1,14 @@
 package com.eb.controller;
 
 import com.eb.domain.Student;
+import com.eb.dto.StudentDTO;
 import com.eb.service.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -62,4 +67,49 @@ public class StudentController
         return new ResponseEntity<>(student, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Student> getStudentWithPathVariable(@PathVariable("id")Long id)
+    {
+        Student student = studentService.getStudentById(id);
+
+        return ResponseEntity.ok(student);
+    }
+
+    //Delete Student
+
+    @DeleteMapping("/{id}")  //http://localhost:8080/students/1
+    public ResponseEntity<Map<String, String>> deleteStudentById(@PathVariable("id")Long id)
+    {
+        studentService.deleteStudent(id);
+
+        Map<String, String> map = new HashMap<>();
+        map.put("message", "student has been deleted successfully");
+        map.put("success", "true");
+
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    //update a student using their id
+    @PutMapping("/{id}") //http://localhost:8080/students/1
+    public ResponseEntity<Map<String, String>> updateStudent(@Valid @PathVariable("id")Long id, @RequestBody StudentDTO student)
+    {
+        studentService.updateStudent(id, student);
+
+        Map<String, String> map = new HashMap<>();
+        map.put("message", "student has been successfully updated");
+        map.put("success", "true");
+
+        return ResponseEntity.ok(map);
+    }
+
+    @GetMapping("/page") //http://localhost:8080/students/page?page = 1
+    public ResponseEntity<Page<Student>> getAllStudentWithPage(@RequestParam("page") int page,
+                                                               @RequestParam("size") int size,
+                                                               @RequestParam("sort") String prop,
+                                                               @RequestParam("direction") Sort.Direction direction)
+    {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, prop));
+
+        Page<Student> pageOfStudents = studentService.getAllStudentsWithPage(pageable);
+    }
 }
