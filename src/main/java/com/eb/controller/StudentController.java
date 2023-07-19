@@ -111,5 +111,7 @@ public class StudentController
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, prop));
 
         Page<Student> pageOfStudents = studentService.getAllStudentsWithPage(pageable);
+
+        return ResponseEntity.ok(pageOfStudents);
     }
 }
