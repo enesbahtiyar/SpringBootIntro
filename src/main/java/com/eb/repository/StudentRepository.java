@@ -25,6 +25,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> // exten
     List<Student> findStudentsByGradeWithSQL(@Param("pGrade") Integer grade);
 
     // Student to StudentDTO, JPQL
-    @Query("SELECT new com.tpe.dto.StudentDTO(s) FROM Student s WHERE s.id =:id")
+    @Query("SELECT new com.eb.dto.StudentDTO(s) FROM Student s WHERE s.id =:id")
     Optional<StudentDTO> findStudentDTOById(@Param("id") Long id);
 }

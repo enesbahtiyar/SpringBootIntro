@@ -9,6 +9,8 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -44,7 +46,9 @@ public class Student //pojo, entity
 
     private String phoneNumber;
 
-
     @Setter(AccessLevel.NONE)
     private LocalDateTime creationDate = LocalDateTime.now();
+
+    @OneToMany(mappedBy = "student")
+    private List<Book> bookList = new ArrayList<>();
 }

@@ -3,7 +3,10 @@ package com.eb.controller;
 import com.eb.domain.Student;
 import com.eb.dto.StudentDTO;
 import com.eb.service.StudentService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +23,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/students") //http://localhost:8080/students
 public class StudentController {
+
+    Logger logger = LoggerFactory.getLogger(StudentController.class);
+
+
     @Autowired
     private StudentService studentService;
 
@@ -124,11 +131,20 @@ public class StudentController {
     }
 
     // Get a StudentDTO By ID, Do mapping inside the Repo
-    @GetMapping("/query/dto")       // http://localhost:8080/students/query/dto?
+    @GetMapping("/query/dto")       // http://localhost:8080/students/query/dto?id=1
     public ResponseEntity<StudentDTO> getStudentDTO(@RequestParam("id") Long id) {
 
         StudentDTO studentDTO = studentService.getStudentDTOById(id);
 
         return ResponseEntity.ok(studentDTO);
+    }
+
+    //logging
+    @GetMapping("/welcome")     // http://localhost:8080/students/welcome
+    public String welcome(HttpServletRequest request)
+    {
+        logger.warn("--Welcome {}", request.getServletPath());
+
+        return "welcome to the student controller";
     }
 }
