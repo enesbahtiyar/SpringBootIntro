@@ -70,4 +70,20 @@ public class StudentService
     {
         return repository.findAll(pageable);
     }
+
+    public List<Student> getStudentByLastName(String lastName)
+    {
+        return repository.findAllByLastName(lastName);
+    }
+
+    public List<Student> getAllStudentByGradeWithJPQL(Integer grade)
+    {
+        return repository.findStudentsByGradeWithJPQL(grade);
+    }
+
+    public StudentDTO getStudentDTOById(Long id) {
+
+        return repository.findStudentDTOById(id).orElseThrow(()-> new ResourceNotFoundException("Couldn't find the student with specified ID: "+id));
+
+    }
 }
