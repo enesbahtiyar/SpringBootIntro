@@ -1,13 +1,10 @@
 package com.eb.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
+import javax.persistence.*;
 import java.beans.BeanProperty;
 
 @Entity
@@ -27,5 +24,6 @@ public class Book
 
     @ManyToOne
     @JoinColumn(name = "student_id")
+    @JsonIgnore()  //ignore that students to prevent the infinite loop
     private Student student;
 }

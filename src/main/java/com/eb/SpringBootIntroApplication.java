@@ -11,5 +11,4 @@ public class SpringBootIntroApplication {
 	{
 		SpringApplication.run(SpringBootIntroApplication.class, args);
 	}
-
 }
