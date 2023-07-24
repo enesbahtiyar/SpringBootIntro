@@ -3,6 +3,7 @@ package com.eb.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,5 +36,5 @@ public class User
     @JoinTable(name = "user_role",
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roleSet;
+    private Set<Role> roleSet = new HashSet<>();
 }

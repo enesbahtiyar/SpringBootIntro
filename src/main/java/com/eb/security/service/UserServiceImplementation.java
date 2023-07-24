@@ -4,7 +4,6 @@ import com.eb.domain.Role;
 import com.eb.domain.User;
 import com.eb.exceptions.ResourceNotFoundException;
 import com.eb.repository.UserRepository;
-import org.apache.tomcat.util.digester.Rule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
