@@ -33,7 +33,7 @@ public class User
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER) //when load user, we want to get his/her role at the same time
-    @JoinTable(name = "user_role",
+    @JoinTable(name = "t_user_role",
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roleSet = new HashSet<>();

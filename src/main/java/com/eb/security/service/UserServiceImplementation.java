@@ -22,7 +22,7 @@ public class UserServiceImplementation implements UserDetailsService
             2: role to GrantedAuthority
      */
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException

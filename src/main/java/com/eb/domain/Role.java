@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@ToString(exclude = "id")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Role
@@ -21,4 +20,11 @@ public class Role
 
     @Enumerated(EnumType.STRING) //to bring string names we need to use EnumType.STRING
     private UserRole name;
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "name=" + name +
+                '}';
+    }
 }

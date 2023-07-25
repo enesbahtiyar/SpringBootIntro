@@ -33,14 +33,20 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter
     {
         http.csrf().disable(). //disable cross site request forgery
                 authorizeHttpRequests(). //authorize http requests
-                antMatchers("/", "index.html", "/css/*", "/js/*"). //these end points are permitted no aouthentication needed for this endpoint
+                antMatchers("/", "index.html", "/css/*", "/js/*", "/register"). //these end points are permitted no aouthentication needed for this endpoint
                 permitAll().
+                and().
+                authorizeRequests().
+                antMatchers("/student/**").
+                hasRole("ADMIN").
                 anyRequest(). //all other requests
                 authenticated(). //should be authenticated
                 and().
                 httpBasic(); //use basic authentication
     }
 
+
+    @Bean
     public PasswordEncoder passwordEncoder()
     {
         return new BCryptPasswordEncoder(10); //for the strength as we can provide number between 4 and 31
